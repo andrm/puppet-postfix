@@ -41,6 +41,10 @@ define postfix::hash ($ensure="present", $source = false) {
       }
     }
 
+    Fedora: {
+      $postfix_seltype = "postfix_etc_t"
+    }
+
     default: {
       $postfix_seltype = undef
     }
