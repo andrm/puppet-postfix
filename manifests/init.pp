@@ -28,6 +28,10 @@ class postfix {
       }
     }
 
+    Fedora: {
+        $postfix_seltype = "postfix_etc_t"
+    }
+
     default: {
       $postfix_seltype = undef
     }
@@ -108,7 +112,7 @@ class postfix {
     group => "root",
     mode => "0644",
     content => $operatingsystem ? {
-      /RedHat|CentOS/ => template("postfix/master.cf.redhat.erb", "postfix/master.cf.common.erb"),
+      /RedHat|CentOS|Fedora/ => template("postfix/master.cf.redhat.erb", "postfix/master.cf.common.erb"),
       /Debian|Ubuntu|kFreeBSD/ => template("postfix/master.cf.debian.erb", "postfix/master.cf.common.erb"),
     },
     seltype => $postfix_seltype,
@@ -137,7 +141,7 @@ class postfix {
   }
 
   case $operatingsystem {
-    RedHat, CentOS: {
+    RedHat, CentOS, Fedora: {
       postfix::config {
         "sendmail_path": value => "/usr/sbin/sendmail.postfix";
         "newaliases_path": value => "/usr/bin/newaliases.postfix";
