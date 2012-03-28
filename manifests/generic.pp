@@ -34,7 +34,7 @@ Example usage:
 
 */
 define postfix::generic ($ensure="present", $destination) {
-  line {"${name} ${destination}":
+  common::line {"${name} ${destination}":
     ensure => $ensure,
     file   => "/etc/postfix/generic",
     line   => "${name} ${destination}",
